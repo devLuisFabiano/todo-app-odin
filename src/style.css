@@ -1,3 +1,60 @@
+:root{
+    --bg-color: #e7ecef;
+    --main-color: #6096ba;
+    --secondary-color: #274c77;
+}
+
 body{
-    background-color: red;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.nav-bar{
+    display: flex;
+    flex: 1 1;
+    background-color: var(--secondary-color);
+}
+
+.content{
+    display: flex;
+    flex: 5 1;
+    background-color: var(--bg-color);
+    padding: 25px;
+    flex-direction: column;
+}
+
+.profile-container{
+    height: 100px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.todo-container{
+    display: flex;
+    flex: 1 1;
+    height: 100%;
+    width: 100%;
+    margin-top: 25px;
+    flex-direction: column;
+}
+
+.title-todo{
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    height: 10%;
+    width: 100%;
+}
+
+.todo{
+    background-color: #ffffff;
+    height: 25%;
+    width: 100%;
 }
