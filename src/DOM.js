@@ -42,14 +42,18 @@ function RefreshNav(obj){
         const btn = document.createElement("button");
         const list = document.querySelector("ul");
         btn.textContent = i.name;
-        btn.addEventListener("click", RefreshContent);
+        btn.setAttribute("data-index",String(obj.ProjectsArr[i]));
+        btn.addEventListener("click", (e) => {
+            console.log(e.target.dataset.index);
+            
+        });
         list.appendChild(btn);
 
         
     });
 };
 
-function RefreshContent(){
+const RefreshContent = function(project){
     const container = document.querySelector(".todo-container");
     container.remove();
     
@@ -63,6 +67,13 @@ function RefreshContent(){
 
     const todo = document.createElement("div");
     todo.classList.add("todo");
+
+    project.todoArr.map((i) => {
+        const div = document.createElement("div");
+        for (const value of Object.entries(i)){
+            div.textContent += value;
+        };
+    });
 
     content.appendChild(todoContainer);
     todoContainer.appendChild(titleDiv);
