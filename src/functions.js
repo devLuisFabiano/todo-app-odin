@@ -1,4 +1,4 @@
-export function CreateObjProject(){
+export function CreateObjProjects(){
 
     let ProjectsArr = [];
 
@@ -9,7 +9,7 @@ export function CreateObjProject(){
     return {ProjectsArr, pushProject};
 }
 
-export function CreateProjects(name){
+export function project(name){
     let todoArr = []
     const pushTodo = (todo) => {
         todoArr.push(todo);
@@ -23,3 +23,8 @@ export function CreateTodo(title,description,dueDate,priority){
     return {title,description,dueDate,priority};
 };
 
+export const CreateProject = function(name,parent){
+    const project1 = project(name);
+    parent.pushProject(project1);
+
+}

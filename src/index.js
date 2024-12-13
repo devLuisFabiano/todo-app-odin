@@ -1,16 +1,17 @@
 import "./style.css";
 import { CreateDom } from "./DOM.js";
-import { CreateObjProject } from "./functions.js";
-import { CreateProjects } from "./functions.js";
+import { project } from "./functions.js";
 import { CreateTodo } from "./functions.js";
+import { CreateObjProjects } from "./functions.js";
+const Projects = CreateObjProjects();
 
 
 
 
 
-const Projects = CreateObjProject();
-Projects.pushProject(CreateProjects("proj1"));
-Projects.pushProject(CreateProjects("proj2"));
+Projects.pushProject(project("proj1"));
+Projects.pushProject(project("proj2"));
+Projects.pushProject(project("proj3"));
 const todo1 = CreateTodo("abc","efg","12/24","low");
 console.log(Projects);
 

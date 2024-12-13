@@ -1,3 +1,6 @@
+import { CreateProject } from "./functions";
+
+
 export const CreateDom = function(obj){
     const body = document.querySelector("body");
 
@@ -25,29 +28,42 @@ export const CreateDom = function(obj){
     const todo = document.createElement("div");
     todo.classList.add("todo");
 
+    const btn = document.createElement("button");
+    btn.textContent = "+";
+    btn.addEventListener("click",() =>{
+        CreateProject("abc",obj);
+        addProjectNav(obj)
+    })
+    
     body.appendChild(container);
+
     container.appendChild(navBar);
     navBar.appendChild(ul);
+    ul.appendChild(btn);
+
     container.appendChild(content);
     content.appendChild(profile);
     content.appendChild(todoContainer);
     todoContainer.appendChild(titleDiv);
     todoContainer.appendChild(todo);
-
-    RefreshNav(obj);
+    
+    addProjectNav(obj);
+    RefreshContent(obj.ProjectsArr[0]);
 };
 
-function RefreshNav(obj){
+function addProjectNav(obj){
+    let index = 0;
     obj.ProjectsArr.map((i) => {
         const btn = document.createElement("button");
         const list = document.querySelector("ul");
         btn.textContent = i.name;
-        btn.setAttribute("data-index",String(obj.ProjectsArr[i]));
+        btn.setAttribute("data-index",index);
         btn.addEventListener("click", (e) => {
-            console.log(e.target.dataset.index);
+            RefreshContent(obj.ProjectsArr[btn.dataset.index]);
             
         });
         list.appendChild(btn);
+        index++;
 
         
     });
@@ -68,12 +84,8 @@ const RefreshContent = function(project){
     const todo = document.createElement("div");
     todo.classList.add("todo");
 
-    project.todoArr.map((i) => {
-        const div = document.createElement("div");
-        for (const value of Object.entries(i)){
-            div.textContent += value;
-        };
-    });
+    titleDiv.textContent = project.name;
+    project.todoArr
 
     content.appendChild(todoContainer);
     todoContainer.appendChild(titleDiv);
