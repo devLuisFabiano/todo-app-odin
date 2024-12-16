@@ -58,3 +58,17 @@ body{
     height: 25%;
     width: 100%;
 }
+
+.btn-todo{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: var(--secondary-color);
+    color: var(--bg-color);
+    font-size: 32px;
+   
+}
