@@ -4,7 +4,7 @@ import { CreateObjProjects } from "./functions";
 import { todoa } from "./functions";
 import { project } from "./functions.js";
 
-
+let activeProject = 0;
 
 
 export const CreateDom = function(){
@@ -13,6 +13,7 @@ export const CreateDom = function(){
     const todo1 = todoa("name todo","descrption todo","12/24","low");
     Projects.ProjectsArr[Projects.ProjectsArr.length-1].pushTodo(todo1);
     console.log(Projects)
+
     
 
 
@@ -53,8 +54,9 @@ export const CreateDom = function(){
     btnTodo.classList.add("btn-todo");
     btnTodo.textContent = "+";
     btnTodo.addEventListener("click",() =>{
-        //const dataIndex = document.querySelector("")
-        CreateTodo("name todo","descrption todo","12/24","low",Projects.ProjectsArr);
+        CreateTodo("name todo","description todo","12/24","low",Projects.ProjectsArr[activeProject]);
+        RefreshContent(Projects.ProjectsArr[activeProject])
+
     })
     
     body.appendChild(container);
@@ -71,7 +73,7 @@ export const CreateDom = function(){
     content.appendChild(btnTodo);
     
     addProjectNav(Projects);
-    RefreshContent(Projects.ProjectsArr[0]);
+    RefreshContent(Projects.ProjectsArr[activeProject]);
 };
 
 function addProjectNav(obj){
@@ -83,6 +85,7 @@ function addProjectNav(obj){
     btn.setAttribute("data-index",index);
     btn.addEventListener("click", () => {
         RefreshContent(obj.ProjectsArr[btn.dataset.index]);
+        activeProject = btn.dataset.index;
             
     });
     list.appendChild(btn);
@@ -102,20 +105,49 @@ const RefreshContent = function(project){
     const titleDiv = document.createElement("div");
     titleDiv.classList.add("title-todo");
 
-    const todo = document.createElement("div");
-    todo.classList.add("todo");
+    content.appendChild(todoContainer);
+    todoContainer.appendChild(titleDiv);
+    let index = 0;
 
     titleDiv.textContent = project.name;
     project.todoArr.map((i) => {
+        const todo = document.createElement("div");
+        todo.classList.add("todo");
+        
+        const btnEdit = document.createElement("button");
+        const btnDel = document.createElement("button");
+        btnDel.classList.add("btn-del");
+        btnDel.setAttribute("data-index",index);
+        index++;
+        
+        btnEdit.classList.add("btn-edit");
+        
+        btnEdit.textContent = "EDIT";
+        btnDel.textContent = "REMOVE";
+
+        btnDel.addEventListener("click", (e) => {
+            project.todoArr.splice(e.target.dataset.index,1);
+            //RefreshContent(Projects.ProjectsArr[activeProject]);
+            
+        })
+
         for(let key in i){
             let item = i[key];
             const div = document.createElement("div");
+            div.classList.add(`todo-${key}`);
             div.textContent = item;
             todo.appendChild(div);
         }
+
+        
+        
+        todoContainer.appendChild(todo);
+        todo.appendChild(btnEdit);
+        todo.appendChild(btnDel);
+        
+
     })
 
-    content.appendChild(todoContainer);
-    todoContainer.appendChild(titleDiv);
-    todoContainer.appendChild(todo);
+    
+    
 }
